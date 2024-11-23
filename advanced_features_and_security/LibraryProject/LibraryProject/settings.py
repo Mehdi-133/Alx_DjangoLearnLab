@@ -155,3 +155,56 @@ SESSION_COOKIE_SECURE = True  # Secure session cookie
 
 CSRF_COOKIE_HTTPONLY = True  # Ensure CSRF cookie is not accessible by JavaScript
 CSRF_USE_SESSIONS = True  # Use session-based CSRF tokens
+
+
+# settings.py
+
+# Redirect all HTTP requests to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# HTTP Strict Transport Security (HSTS) settings
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Include all subdomains in the HSTS policy
+SECURE_HSTS_PRELOAD = True  # Allow preloading of HSTS policy in browsers
+
+# Ensure cookies are only sent over secure connections
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+
+# settings.py
+
+# Ensure session and CSRF cookies are only sent over HTTPS connections
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+
+# settings.py
+
+# Prevent the site from being framed (clickjacking protection)
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent browsers from sniffing the MIME type
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable the browser's XSS filtering
+SECURE_BROWSER_XSS_FILTER = True
+
+# settings.py
+
+# Force HTTPS for all connections
+SECURE_SSL_REDIRECT = True  # Redirects all non-HTTPS requests to HTTPS
+
+# Enforce HTTPS with HSTS
+SECURE_HSTS_SECONDS = 31536000  # One year in seconds
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply to all subdomains
+SECURE_HSTS_PRELOAD = True  # Allows preloading of HSTS in browsers
+
+# Secure cookies
+SESSION_COOKIE_SECURE = True  # Ensures session cookies are only sent over HTTPS
+CSRF_COOKIE_SECURE = True  # Ensures CSRF cookies are only sent over HTTPS
+
+# Security Headers
+X_FRAME_OPTIONS = 'DENY'  # Prevents framing of the page to avoid clickjacking
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevents browsers from guessing the MIME type
+SECURE_BROWSER_XSS_FILTER = True  # Enables browser XSS filtering
