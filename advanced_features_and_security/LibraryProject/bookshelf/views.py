@@ -41,3 +41,15 @@ def delete_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
     book.delete()
     return render(request, 'book_deleted.html')
+
+
+# LibraryProject/bookshelf/views.py
+from django.shortcuts import render
+from .models import Book
+from django.contrib.auth.decorators import permission_required
+
+# List all books - requiring permission to view
+@permission_required('bookshelf.can_view', raise_exception=True)
+def book_list(request):
+    books = Book.objects.all()  # Fetch all books from the database
+    return render(request, 'bookshelf/book_list.html', {'books': books})
