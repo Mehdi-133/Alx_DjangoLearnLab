@@ -64,3 +64,19 @@ def book_search(request):
     search_query = request.GET.get('q', '')  # Safe way to get user input
     books = Book.objects.filter(title__icontains=search_query)  # Django ORM prevents SQL injection
     return render(request, 'bookshelf/book_list.html', {'books': books})
+
+
+# LibraryProject/bookshelf/views.py
+from django.shortcuts import render
+from .forms import ExampleForm
+from .models import Book
+
+def book_search(request):
+    form = ExampleForm(request.GET)
+    books = []
+
+    if form.is_valid():
+        search_query = form.cleaned_data['search_query']
+        books = Book.objects.filter(title__icontains=search_query)
+
+    return render(request, 'bookshelf/book_list.html', {'form': form, 'books': books})
