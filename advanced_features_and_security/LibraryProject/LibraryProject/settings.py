@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q(id*8c%=4^fw=ku0c-d0tesu6#gjo4a%7&&l!4f+$o95)n30n'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
 
 
 # Application definition
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'csp.middleware.CSPMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +55,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CSP_DEFAULT_SRC = ("'self'",)  # Allow content only from the same origin
+CSP_SCRIPT_SRC = ("'self'", "https://trusted-cdn.com")  # Allow scripts from trusted sources
+CSP_STYLE_SRC = ("'self'", "https://trusted-cdn.com")  # Allow styles from trusted sources
 
 ROOT_URLCONF = 'LibraryProject.urls'
 
@@ -133,3 +139,19 @@ AUTH_USER_MODEL = 'bookshelf.CustomUser'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# LibraryProject/settings.py
+
+SECURE_BROWSER_XSS_FILTER = True  # Protect against XSS
+X_FRAME_OPTIONS = 'DENY'  # Prevent clickjacking by disallowing embedding in iframes
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Prevent browsers from sniffing content types
+
+# LibraryProject/settings.py
+
+CSRF_COOKIE_SECURE = True  # Secure CSRF cookie
+SESSION_COOKIE_SECURE = True  # Secure session cookie
+
+# LibraryProject/settings.py
+
+CSRF_COOKIE_HTTPONLY = True  # Ensure CSRF cookie is not accessible by JavaScript
+CSRF_USE_SESSIONS = True  # Use session-based CSRF tokens

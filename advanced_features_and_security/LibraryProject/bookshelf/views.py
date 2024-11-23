@@ -53,3 +53,14 @@ from django.contrib.auth.decorators import permission_required
 def book_list(request):
     books = Book.objects.all()  # Fetch all books from the database
     return render(request, 'bookshelf/book_list.html', {'books': books})
+
+
+# LibraryProject/bookshelf/views.py
+from django.shortcuts import render
+from .models import Book
+from django.http import HttpResponse
+
+def book_search(request):
+    search_query = request.GET.get('q', '')  # Safe way to get user input
+    books = Book.objects.filter(title__icontains=search_query)  # Django ORM prevents SQL injection
+    return render(request, 'bookshelf/book_list.html', {'books': books})
